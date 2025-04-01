@@ -15,4 +15,4 @@ const NewsKitPlayerPage = () => {
     </NewsKitProvider>
   );
 };
-export default NewsKitPlayerPage;
+export { NewsKitPlayerPage };

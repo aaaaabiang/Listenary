@@ -1,10 +1,29 @@
-import NewsKitPlayerPage from "./presenter/NewsKitPlayerPresenter";
-export const ReactRoot = () => {
+import { observer } from "mobx-react-lite";
+import { NewsKitPlayerPage } from "./presenter/NewsKitPlayerPresenter";
+import { Transcription } from "./presenter/TranscriptionPresenter";
+import { createHashRouter, RouterProvider } from "react-router-dom";
+export const ReactRoot = observer(function ReactRoot(props) {
   return (
-    <div style={{ padding: "40px" }}>
-      {" "}
-      <h1>Audio Player MVP Structure Test</h1>{" "}
-      <h2>NewsKit Audio Player Demo</h2> <NewsKitPlayerPage />{" "}
+    <div>
+      <RouterProvider router={makeRouter(props.model)} />
     </div>
   );
-};
+});
+
+// export function DetailsPresenter(props) {
+export function makeRouter(ReactiveModel) {
+  return createHashRouter([
+    {
+      path: "/",
+      element: <NewsKitPlayerPage model={ReactiveModel} />,
+    },
+    {
+      path: "/audioplayer",
+      element: <NewsKitPlayerPage model={ReactiveModel} />,
+    },
+    {
+      path: "/transcription",
+      element: <Transcription model={ReactiveModel} />,
+    },
+  ]);
+}
