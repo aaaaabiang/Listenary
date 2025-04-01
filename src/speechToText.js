@@ -31,7 +31,7 @@ export function speechToText(params) {
   }
 
   function saveTranscripDataACB(data) {
-    const transcript = data.results ? data.results : "no results";
+    const transcript = data.combinedPhrases[0]?.text || "no results";
     model.setResults(transcript);
   }
 }

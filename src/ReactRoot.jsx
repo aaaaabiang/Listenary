@@ -10,7 +10,6 @@ export const ReactRoot = observer(function ReactRoot(props) {
   );
 });
 
-// export function DetailsPresenter(props) {
 export function makeRouter(ReactiveModel) {
   return createHashRouter([
     {

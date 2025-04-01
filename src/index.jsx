@@ -2,13 +2,17 @@
 import { observable } from "mobx";
 import { createRoot } from "react-dom/client";
 import { ReactRoot } from "./ReactRoot";
-createRoot(document.getElementById("root")).render(<ReactRoot />);
 
 import { model } from "./Model";
 import { speechToText } from "./speechToText";
 import { PROXY_URL } from "./apiConfig";
 
 const myModel = observable(model);
+window.myModel = myModel;
+
+createRoot(document.getElementById("root")).render(
+  <ReactRoot model={myModel} />
+);
 
 const audioUrl = "https://crbn.us/whatstheweatherlike.wav";
 // const audioUrl =
