@@ -1,3 +1,4 @@
+// import { model } from "./Model.js";
 import { model } from "./Model.js";
 import { AZURE_API_URL, PROXY_KEY } from "./apiConfig.js";
 
@@ -19,7 +20,7 @@ export function speechToText(params) {
       body: formData,
     }
   )
-    .then(gotResponseACB)
+    .then(gotResponseACB) //convert raedata to json
     .then(saveTranscripDataACB)
     .catch(function (error) {
       console.error("Fail to upload or transcribe", error.message);
@@ -31,7 +32,9 @@ export function speechToText(params) {
   }
 
   function saveTranscripDataACB(data) {
-    const transcript = data.combinedPhrases[0]?.text || "no results";
-    model.setResults(transcript);
+    if (data) {
+      const transcript = data.combinedPhrases[0]?.text || "no results";
+      model.setResults(transcript);
+    }
   }
 }
