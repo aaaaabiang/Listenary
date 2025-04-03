@@ -3,11 +3,9 @@ import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import { ReactRoot } from "./ReactRoot";
 import { model } from "./model";
-import "./styles/LoginPage.css"
-import LoginPresenter from "./presenter/loginPagePresenter.jsx"
+import "./styles/LoginPage.css";
 
-const loginPresenter = <LoginPresenter />
-
+console.log("Login page styles loaded");
 
 const myModel = observable(model);
 window.myModel = myModel;

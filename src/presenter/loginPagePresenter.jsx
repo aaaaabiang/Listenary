@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import loginModel from "..loginModel.js"
+import loginModel from "../loginModel.js"
 import LoginView from "../views/loginPageView.jsx"
 
 function LoginPresenter() {

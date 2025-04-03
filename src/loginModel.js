@@ -1,5 +1,5 @@
 //manage login interface data
-class loginModel {
+class LoginModel {
     constructor() {
         this.username = ""
         this.password = ""
@@ -80,7 +80,7 @@ class loginModel {
 }
   
   // Create and export a singleton instance
-  var loginModel = new loginModel()
+  const loginModel = new LoginModel()
   export default loginModel
   
   

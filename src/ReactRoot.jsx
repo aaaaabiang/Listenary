@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
+import LoginPresenter from "./presenter/loginPagePresenter.jsx";
 
 export const ReactRoot = observer(function ReactRoot(props) {
   return (
@@ -15,5 +16,9 @@ export function makeRouter(ReactiveModel) {
       path: "/",
       element: <HomePagePresenter model={ReactiveModel} />,
     },
+    {
+      path: "/login",
+      element: <LoginPresenter model={ReactiveModel} />,
+    }
   ]);
 }
