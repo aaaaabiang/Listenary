@@ -1,9 +1,9 @@
 export function TranscripResultsView(props) {
-  console.log("Rendering Transcription:", props.transcripResults);
+  console.log("页面显示的转写结果:", props.transcripResults);
   return (
     <div>
       <h3>Transcription</h3>
-      <div>Transcription result: {props.transcripResults}</div>
+      <div>{props.transcripResults}</div>
     </div>
   );
 }

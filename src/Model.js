@@ -7,7 +7,7 @@ export const model = {
   transcripResultsPromiseState: "",
 
   setResults(results) {
-    this.transcripResults = results;
+    this.transcripResults = [].concat(results); //MobX 中，直接赋值代理数组会导致更新失败。
   },
   setAudioUrl(url) {
     this.audioUrl = url;

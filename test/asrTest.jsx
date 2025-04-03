@@ -5,7 +5,7 @@ import { PROXY_URL } from "../src/apiConfig";
 export function AsrTest() {
   useEffect(function () {
     console.log("AsrTest Component Mounted"); // 检查是否进入 useEffect
-    const audioUrl = "https://crbn.us/whatstheweatherlike.wav";
+    // const audioUrl = "https://crbn.us/whatstheweatherlike.wav";
     const proxyUrl = `${PROXY_URL}/proxy?url=${encodeURIComponent(audioUrl)}`;
 
     // 下载音频并进行转写

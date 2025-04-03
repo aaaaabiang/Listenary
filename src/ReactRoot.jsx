@@ -3,12 +3,14 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
 import { Transcription } from "./presenter/TranscrptionPresenter";
 
-export const ReactRoot = observer(function ReactRoot(props) {
+const ReactRoot = observer(function ReactRoot(props) {
   return (
     <RouterProvider router={makeRouter(props.model)} />
     /*RouterProvider comes from react-router-dom*/
   );
 });
+
+export { ReactRoot };
 
 export function makeRouter(ReactiveModel) {
   return createHashRouter([

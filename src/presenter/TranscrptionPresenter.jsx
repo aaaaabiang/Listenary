@@ -6,7 +6,7 @@ import { speechToText } from "../speechToText.js";
 import { PROXY_URL } from "../apiConfig.js";
 
 const Transcription = observer(function TranscripRender(props) {
-  // console.log("TranscriptionPresenter Rendered");
+  console.log("Transcription:", props.model.transcripResults);
   console.log("Audio URL: ", props.model.audioUrl);
   return (
     //use a boolean expression {data && A || B}, where data is from the promise state, A=the search results and B= the suspense
@@ -47,16 +47,21 @@ const Transcription = observer(function TranscripRender(props) {
           definition: JSON.stringify({ locales: ["en-US"] }),
         };
         // 请求语音转文本 API
-        speechToText(params).then(resultUpdateACB);
+        speechToText(params).then(saveTranscripDataACB); //保存结果;
       })
       .catch(function (error) {
         console.error("Fail", error.message);
       });
   }
 
-  function resultUpdateACB(result) {
-    console.log("API returned result: ", result);
-    props.model.setResults(result);
+  //save transcription result
+  function saveTranscripDataACB(data) {
+    if (data) {
+      const transcript = data.combinedPhrases[0]?.text || "no results";
+      props.model.setResults(transcript);
+    } else {
+      console.log("API 返回空数据");
+    }
   }
 });
 

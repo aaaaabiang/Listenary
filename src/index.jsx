@@ -6,9 +6,9 @@ import { model } from "./Model";
 import { AsrTest } from "../test/asrTest";
 
 const myModel = observable(model);
-window.myModel = myModel;
 
 createRoot(document.getElementById("root")).render(
   <ReactRoot model={myModel} />
   // <AsrTest />  //test ASR api
 ); //*render the ReactRoot component to the front-end page, pass the model to it*
+window.myModel = myModel;

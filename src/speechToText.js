@@ -21,7 +21,6 @@ export function speechToText(params) {
     }
   )
     .then(gotResponseACB) //convert raedata to json
-    .then(saveTranscripDataACB)
     .catch(function (error) {
       console.error("Fail to upload or transcribe", error.message);
     });
@@ -29,12 +28,5 @@ export function speechToText(params) {
   function gotResponseACB(response) {
     if (response.status != 200) throw new Error(response.status);
     return response.json(); // Deserialization of the response data
-  }
-
-  function saveTranscripDataACB(data) {
-    if (data) {
-      const transcript = data.combinedPhrases[0]?.text || "no results";
-      model.setResults(transcript);
-    }
   }
 }
