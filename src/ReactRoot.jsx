@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
+import TranslationAPI from "./test/TranslationAPI";
 
 export const ReactRoot = observer(function ReactRoot(props) {
   return (
@@ -14,6 +15,10 @@ export function makeRouter(ReactiveModel) {
     {
       path: "/",
       element: <HomePagePresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/translation-test",
+      element: <TranslationAPI />,
     },
   ]);
 }
