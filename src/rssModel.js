@@ -52,7 +52,8 @@ export class RssModel {
   getArticles() {
     return this.articles;
   }
-
+  
+  //订阅者模式
   subscribe(callback) {
     this.subscribers.push(callback);
     return () => {

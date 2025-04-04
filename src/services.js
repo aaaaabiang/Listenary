@@ -1,5 +1,5 @@
 export const fetchRssFeed = (url, callback) => {
-  fetch(`http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`)
+  fetch(`http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`)//后台api调取
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

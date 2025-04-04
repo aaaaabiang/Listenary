@@ -3,22 +3,23 @@ import { RssModel } from '../rssModel';
 
 export const RssPresenter = () => {
   useEffect(() => {
-    async function extractRssData() {
+    function extractRssData() {
       const rssModel = new RssModel();
-      try {
-        const { urls, articles } = await rssModel.loadFeed('https://feeds.bbci.co.uk/news/rss.xml');
+      
+      rssModel.loadFeed('https://feeds.bbci.co.uk/news/rss.xml', (error, data) => {
+        if (error) {
+          console.error('RSS数据提取失败:', error);
+          return;
+        }
         
         // URLs仅在后台使用
-        console.log('Backend URLs:', urls);
+        console.log('Backend URLs:', data.urls);
         
         // 文章信息将用于前端展示
-        console.log('Frontend Articles Data:', articles);
+        console.log('Frontend Articles Data:', data.articles);
         
         // 这里可以存储articles数据，供后续页面展示使用
-        
-      } catch (error) {
-        console.error('RSS数据提取失败:', error);
-      }
+      });
     }
     
     extractRssData();
