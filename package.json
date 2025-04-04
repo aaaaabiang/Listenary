@@ -12,6 +12,9 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "axios": "^1.8.4",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "firebase": "~11.0.2",
     "mobx": "~6.13.5",
     "mobx-react-lite": "~4.0.7",
@@ -19,6 +22,18 @@
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
     "react-h5-audio-player": "^3.10.0-rc.1",
-    "react-router-dom": "^6.8.1"
-  }
+    "react-router-dom": "^6.8.1",
+    "rss-parser": "^3.13.0"
+  },
+  "name": "jigao-liyuans-ruopeng-yuezhe-vt25-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gits-15.sys.kth.se/iprog-students/jigao-liyuans-ruopeng-yuezhe-vt25-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

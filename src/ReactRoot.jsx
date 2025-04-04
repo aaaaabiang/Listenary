@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
+import RssPresenter from "./presenter/rssPresenter";
 
 export const ReactRoot = observer(function ReactRoot(props) {
   return (
@@ -15,5 +16,9 @@ export function makeRouter(ReactiveModel) {
       path: "/",
       element: <HomePagePresenter model={ReactiveModel} />,
     },
+    {
+      path: "/rss-test",
+      element: <RssPresenter />,
+    }
   ]);
 }
