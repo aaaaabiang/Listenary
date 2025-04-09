@@ -4,6 +4,9 @@ import { TranscripInputView } from "../views/TranscripInputView.jsx";
 import { SuspenseView } from "../views/suspenseView.jsx";
 import { speechToText } from "../speechToText.js";
 import { PROXY_URL } from "../apiConfig.js";
+//import autio player
+import AudioPlayerPresenter from "../presenter/NewsKitPlayerPresenter";
+import { NewsKitProvider, newskitLightTheme, TitleBar, Block } from "newskit";
 
 const Transcription = observer(function TranscripRender(props) {
   console.log("Transcription:", props.model.transcripResults);
@@ -12,12 +15,22 @@ const Transcription = observer(function TranscripRender(props) {
     //use a boolean expression {data && A || B}, where data is from the promise state, A=the search results and B= the suspense
     //if data == true return A, if data ==null/undefine return B.
     <div>
-      <TranscripInputView
-        url={props.url}
-        onInputChange={inputHandlerACB}
-        onSubmit={submitHandlerACB}
-      />
-      <TranscripResultsView transcripResults={props.model.transcripResults} />
+      <div>
+        {/* transcription */}
+        <TranscripInputView
+          url={props.url}
+          onInputChange={inputHandlerACB}
+          onSubmit={submitHandlerACB}
+        />
+        <TranscripResultsView transcripResults={props.model.transcripResults} />
+        {/* audioplayer */}
+        <NewsKitProvider theme={newskitLightTheme}>
+          <div style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}>
+            <TitleBar>NewsKit Audio Player Demo</TitleBar>
+            <AudioPlayerPresenter audioSrc={props.model.audioUrl} />
+          </div>
+        </NewsKitProvider>
+      </div>
     </div>
   );
 
@@ -57,10 +70,12 @@ const Transcription = observer(function TranscripRender(props) {
   //save transcription result
   function saveTranscripDataACB(data) {
     if (data) {
-      const transcript = data.combinedPhrases[0]?.text || "no results";
-      props.model.setResults(transcript);
+      for (let i = 0; i < data.phrases.length; i++) {
+        const transcript = data.phrases[i] || "no results";
+        props.model.setResults(transcript);
+      }
     } else {
-      console.log("API 返回空数据");
+      console.log("API返回空数据");
     }
   }
 });

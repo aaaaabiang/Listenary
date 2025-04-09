@@ -30,3 +30,16 @@ export function speechToText(params) {
     return response.json(); // Deserialization of the response data
   }
 }
+
+//get timestamp
+export function getTimestamp(result) {
+  for (let i = 0; i < result.length; i++) {
+    return result[i].durationMilliseconds;
+  }
+}
+//get split sentence
+export function getSentence(result) {
+  for (let i = 0; i < result.length; i++) {
+    return result[i].text;
+  }
+}

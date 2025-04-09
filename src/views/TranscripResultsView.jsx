@@ -1,9 +1,35 @@
+import { getTimestamp, getSentence } from "../speechToText";
+
+import "../styles/Transcription.css";
+
 export function TranscripResultsView(props) {
-  console.log("页面显示的转写结果:", props.transcripResults);
+  console.log(
+    "页面显示的转写结果:",
+    getTimestamp(props.transcripResults),
+    getSentence(props.transcripResults)
+  );
+
+  //render results by sentence row
+  function SentenceRowCB(data) {
+    return (
+      <tr key={data.id} className="transcription-text">
+        <td>{getTimestamp(props.transcripResults)}</td>
+        <td>{getSentence(props.transcripResults)}</td>
+      </tr>
+    );
+  }
   return (
-    <div>
+    <div className="transcription-section results-section">
       <h3>Transcription</h3>
-      <div>{props.transcripResults}</div>
+      <table>
+        <thead>
+          <tr>
+            <th>timestamp</th>
+            <th>text</th>
+          </tr>
+        </thead>
+        <tbody>{SentenceRowCB}</tbody>
+      </table>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 // TranscipInputView.jsx 修改后的子组件
 // import { useState, useEffect } from 'react'; // 添加 useEffect
-import { NewsKitProvider, newskitLightTheme, TitleBar, Block } from 'newskit';
-import AudioPlayerPresenter from '../presenter/NewsKitPlayerPresenter';
+import "../styles/Transcription.css";
 
-export function TranscripInputView(props) {// 接收 props
+export function TranscripInputView(props) {
+  // 接收 props
   // const [audioUrl, setAudioUrl] = useState(url); // 使用 props 初始化
 
   // // 同步父组件传入的 url 变化
@@ -23,20 +23,10 @@ export function TranscripInputView(props) {// 接收 props
   // };
 
   return (
-    <NewsKitProvider theme={newskitLightTheme}>
-      <div style={{ padding: '40px', maxWidth: '800px', margin: '0 auto' }}>
-        <TitleBar>NewsKit Audio Player Demo</TitleBar>
-        
-      <div>
+    <div className="transcription-section">
       <h3>Audio URL</h3>
       <input type="text" value={props.url} onChange={props.onInputChange} />
       <button onClick={props.onSubmit}>Submit</button>
-      </div>
-
-        <Block>
-          <AudioPlayerPresenter audioSrc={props.url} />
-        </Block>
-      </div>
-    </NewsKitProvider>
+    </div>
   );
 }
