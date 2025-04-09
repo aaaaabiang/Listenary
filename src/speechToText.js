@@ -31,7 +31,7 @@ export function speechToText(params) {
   }
 }
 
-//get timestamp
+//get timestamp (problem remain)
 export function getTimestamp(result) {
   for (let i = 0; i < result.length; i++) {
     return result[i].durationMilliseconds;

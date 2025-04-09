@@ -10,9 +10,9 @@ export function TranscripResultsView(props) {
   );
 
   //render results by sentence row
-  function SentenceRowCB(data) {
+  function SentenceRowCB() {
     return (
-      <tr key={data.id} className="transcription-text">
+      <tr className="transcription-text">
         <td>{getTimestamp(props.transcripResults)}</td>
         <td>{getSentence(props.transcripResults)}</td>
       </tr>
@@ -28,7 +28,7 @@ export function TranscripResultsView(props) {
             <th>text</th>
           </tr>
         </thead>
-        <tbody>{SentenceRowCB}</tbody>
+        <tbody>{props.transcripResults.map(SentenceRowCB)}</tbody>
       </table>
     </div>
   );
