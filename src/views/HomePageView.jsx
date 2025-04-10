@@ -3,6 +3,13 @@ import '../styles/HomePage.css';
 export function HomePageView(props) {
   return (
     <div className="homepage-container">
+      <nav className="top-nav">
+        <div className="nav-links">
+          <a href="/#/wordlist" className="nav-link">Wordlist</a>
+          <a href="/#/login" className="nav-link">Login</a>
+        </div>
+      </nav>
+      
       <div className="logo-container">
         <img src="/logo.png" alt="Listenary" className="logo" />
       </div>
@@ -29,7 +36,7 @@ export function HomePageView(props) {
         </div>
 
         <div className="saved-grid">
-          {/* 占位卡片 */}
+          {/* Placeholder for saved items */}
           <div className="saved-item">
             <span className="item-number">1st</span>
           </div>
