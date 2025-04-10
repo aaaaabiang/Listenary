@@ -4,6 +4,7 @@ import { HomePagePresenter } from "./presenter/HomePagePresenter";
 import { Transcription } from "./presenter/TranscrptionPresenter";
 import { WordlistPresenter } from "./presenter/WordlistPresenter";
 import TranslationAPI from "./test/TranslationAPI";
+import LoginPresenter from "./presenter/loginPagePresenter.jsx";
 
 const ReactRoot = observer(function ReactRoot(props) {
   return (
@@ -28,10 +29,13 @@ export function makeRouter(ReactiveModel) {
       path: "/translation-test",
       element: <TranslationAPI />,
     },
-    //add Transcription router
     {
       path: "/Transcription",
       element: <Transcription model={ReactiveModel} />,
     },
+    {
+      path: "/login",
+      element: <LoginPresenter model={ReactiveModel} />,
+    }
   ]);
 }

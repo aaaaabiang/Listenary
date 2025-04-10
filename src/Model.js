@@ -1,6 +1,7 @@
 import { resolvePromise } from "./resolvePromise.js";
 import { speechToText } from "./speechToText.js";
 
+
 export const model = {
   audioUrl: "",
   transcripResults: [],
@@ -18,3 +19,4 @@ export const model = {
     resolvePromise(speechToText(params), transcripResultsPromiseState);
   },
 };
+
