@@ -25,7 +25,8 @@ const HomePagePresenter = observer(function HomePagePresenter(props) {
       onInputChange={inputHandlerACB}
       onSubmit={submitHandlerACB}
       onNavigate={handleNavigateACB} // 新增传入
-    />
-  );
+      />
+    );
+  }); 
 
 export { HomePagePresenter };
