@@ -10,26 +10,40 @@ export function TranscripResultsView(props) {
   );
 
   //render results by sentence row
-  function SentenceRowCB() {
+  function SentenceRowCB(phrase, index) {
     return (
-      <tr className="transcription-text">
-        <td>{getTimestamp(props.transcripResults)}</td>
-        <td>{getSentence(props.transcripResults)}</td>
+      <tr key={index} className="transcription-text">
+        <td>{props.getTimestamp(phrase)}</td>
+        <td>{props.getSentence(phrase)}</td>
       </tr>
     );
   }
   return (
     <div className="transcription-section results-section">
-      <h3>Transcription</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>timestamp</th>
-            <th>text</th>
-          </tr>
-        </thead>
-        <tbody>{props.transcripResults.map(SentenceRowCB)}</tbody>
-      </table>
+      <h3 className="transcription-title">Transcription</h3>
+      <div className="results-container">
+        <table className="results-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Text</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.transcripResults.length > 0 ? (
+              props.transcripResults.map(SentenceRowCB)
+            ) : (
+              <tr>
+                {" "}
+                <td colSpan="2" className="no-results">
+                  {" "}
+                  No transcription results available.
+                </td>{" "}
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
