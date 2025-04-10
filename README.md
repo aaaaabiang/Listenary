@@ -6,6 +6,12 @@
 
 ### npm run dev
 
-## test audio
+## Begin from the homepage
+
+### Input this RSS link and click search button: conferencesforwomen.org/feed/podcast/
+
+## Individual audio test
+
+### The router address: /#/Transcription
 
 ### https://crbn.us/whatstheweatherlike.wav

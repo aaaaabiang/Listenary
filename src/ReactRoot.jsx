@@ -3,6 +3,8 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
 import { Transcription } from "./presenter/TranscrptionPresenter";
 import { WordlistPresenter } from "./presenter/WordlistPresenter";
+import PodcastChannelPresenter from "./presenter/PodcastChannelPresenter";
+import PodcastPlayPresenter from "./presenter/PodcastPlayPresenter";
 import TranslationAPI from "./test/TranslationAPI";
 import LoginPresenter from "./presenter/loginPagePresenter.jsx";
 
@@ -36,6 +38,14 @@ export function makeRouter(ReactiveModel) {
     {
       path: "/login",
       element: <LoginPresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/podcast-channel",
+      element: <PodcastChannelPresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/podcast-play",
+      element: <PodcastPlayPresenter model={ReactiveModel} />,
     }
   ]);
 }

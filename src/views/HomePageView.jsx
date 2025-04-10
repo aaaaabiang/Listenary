@@ -1,6 +1,17 @@
 import '../styles/HomePage.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export function HomePageView(props) {
+export function HomePageView({ onRssSubmit }) {
+  const navigate = useNavigate();
+  const [rssUrl, setRssUrl] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 直接导航到播客频道页面，使用默认的 RSS URL
+    navigate('/podcast-channel');
+  };
+
   return (
     <div className="homepage-container">
       <nav className="top-nav">
@@ -14,14 +25,18 @@ export function HomePageView(props) {
         <img src="/logo.png" alt="Listenary" className="logo" />
       </div>
       
-      <div className="search-container">
+      <form className="search-container" onSubmit={handleSubmit}>
         <input 
           type="text" 
           className="search-input"
-          placeholder="Input RSS link to get podcast transcription"
+          placeholder="Search for podcasts"
+          value={rssUrl}
+          onChange={(e) => setRssUrl(e.target.value)}
         />
-        <span className="search-icon">🔍</span>
-      </div>
+        <button type="submit" className="search-button">
+          <span className="search-icon">🔍</span>
+        </button>
+      </form>
 
       <a href="#" className="help-link">
         How to get RSS link for podcast? →
@@ -56,3 +71,4 @@ export function HomePageView(props) {
     </div>
   );
 }
+
