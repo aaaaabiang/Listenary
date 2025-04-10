@@ -3,14 +3,14 @@ import loginModel from "../loginModel.js"
 import LoginView from "../views/loginPageView.jsx"
 
 function LoginPresenter() {
-  // Local state to trigger re-renders when model changes
+  // Local state to trigger re-renders when model changes 当模型改变时触发重新渲染的本地状态
   const [modelState, setModelState] = useState({
     username: loginModel.username,
     password: loginModel.password,
     isLoading: loginModel.isLoading,
   })
 
-  // Subscribe to model changes
+  // Subscribe to model changes 订阅模型变更
   useEffect(() => {
     const unsubscribe = loginModel.subscribe((model) => {
       setModelState({
@@ -20,11 +20,11 @@ function LoginPresenter() {
       })
     })
 
-    // Cleanup subscription on unmount
+    // Cleanup subscription on unmount 卸载时清理订阅
     return unsubscribe
   }, [])
 
-  // Event handlers that interact with the model
+  // Event handlers that interact with the model 与模型交互的事件处理程序
   function handleUsernameChange(e) {
     loginModel.setUsername(e.target.value)
   }
@@ -46,7 +46,7 @@ function LoginPresenter() {
 
     loginModel.login((result) => {
       if (result.success) {
-        // Handle successful login (e.g., redirect)
+        // Handle successful login (eg.redirect) 跳转页面
         console.log("Login successful")
       } else {
         // Handle login failure
