@@ -1,15 +1,10 @@
 import { observer } from "mobx-react-lite";
 import { TranscripResultsView } from "../views/TranscripResultsView.jsx";
-//import { TranscripInputView } from "../views/TranscripInputView.jsx";
-import { HomePageView } from "../views/HomePageView.jsx";
 import "../styles/Transcription.css";
-import { SuspenseView } from "../views/suspenseView.jsx";
 import { speechToText } from "../speechToText.js";
 import { PROXY_URL } from "../apiConfig.js";
-//import autio player
 import AudioPlayerPresenter from "../presenter/NewsKitPlayerPresenter";
 import { NewsKitProvider, newskitLightTheme, TitleBar, Block } from "newskit";
-
 import { useEffect } from "react";
 
 const Transcription = observer(function TranscripRender(props) {
@@ -23,37 +18,14 @@ const Transcription = observer(function TranscripRender(props) {
   }, [props.model.audioUrl]);
 
   return (
-    <div>
-
-      <div className="transcription-page">
-        {/* transcription */}
-//         <div className="transcription-input">
-//           <TranscripInputView
-//             url={props.url}
-//             onInputChange={inputHandlerACB}
-//             onSubmit={submitHandlerACB}
-//           />
-        </div>
-      {/* Only render the transcription results and audio player */}
-        <div className="transcription-results" id="transcription">
-          <TranscripResultsView
-            transcripResults={props.model.transcripResults}
-            getTimestamp={getTimestamp}
-            getSentence={getSentence}
-          />
-        </div>
-
-        <div className="audio-player-container">
-          {/* audioplayer */}
-          <NewsKitProvider theme={newskitLightTheme}>
-            <div
-              style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}
-            >
-              <AudioPlayerPresenter audioSrc={props.model.audioUrl} />
-            </div>
-          </NewsKitProvider>
-        </div>
-
+    <div className="transcription-page">
+      {/* transcription results */}
+      <div className="transcription-results" id="transcription">
+        <TranscripResultsView
+          transcripResults={props.model.transcripResults}
+          getTimestamp={getTimestamp}
+          getSentence={getSentence}
+        />
       </div>
       {/* Audioplayer */}
       <NewsKitProvider theme={newskitLightTheme}>
@@ -64,17 +36,6 @@ const Transcription = observer(function TranscripRender(props) {
       </NewsKitProvider>
     </div>
   );
-
-  //input handler, set audio url in model as input
-  function inputHandlerACB(event) {
-    const url = event.target.value;
-    props.model.setAudioUrl(url);
-  }
-
-  //submit handler, use the set url to request api
-  function submitHandlerACB() {
-    fetchAndTranscribe(props.model.audioUrl);
-  }
 
   //url process & api request
   function fetchAndTranscribe(audioUrl) {
