@@ -1,6 +1,13 @@
 import '../styles/HomePage.css';
 
 export function HomePageView(props) {
+
+  // const handleSubmitAndNavigate = () => {
+  //   if (props.onSubmit) props.onSubmit();  // 触发 Transcription 中的 submitHandlerACB
+  //   console.log("props.onSubmit", props.onSubmit);
+  //   window.location.hash = 'transcription'; // 立即跳转
+  // };
+
   return (
     <div className="homepage-container">
       <div className="logo-container">
@@ -10,10 +17,19 @@ export function HomePageView(props) {
       <div className="search-container">
         <input 
           type="text" 
-          className="search-input"
+          value={props.url}
+          onChange={props.onInputChange}  // input 改变时才需要这个
+          className="transcription-section"
           placeholder="Input RSS link to get podcast transcription"
         />
-        <span className="search-icon">🔍</span>
+        <span className="search-icon">
+          <button onClick={() => {
+            props.onSubmit();
+            props.onNavigate(); 
+          }}>
+            🔍
+          </button>
+        </span>
       </div>
 
       <a href="#" className="help-link">
@@ -29,19 +45,10 @@ export function HomePageView(props) {
         </div>
 
         <div className="saved-grid">
-          {/* 占位卡片 */}
-          <div className="saved-item">
-            <span className="item-number">1st</span>
-          </div>
-          <div className="saved-item">
-            <span className="item-number">2nd</span>
-          </div>
-          <div className="saved-item">
-            <span className="item-number">3rd</span>
-          </div>
-          <div className="saved-item">
-            <span className="item-number">4th</span>
-          </div>
+          <div className="saved-item"><span className="item-number">1st</span></div>
+          <div className="saved-item"><span className="item-number">2nd</span></div>
+          <div className="saved-item"><span className="item-number">3rd</span></div>
+          <div className="saved-item"><span className="item-number">4th</span></div>
         </div>
 
         <a href="#" className="show-more">Show more</a>

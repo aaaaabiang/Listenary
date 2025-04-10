@@ -1,3 +1,4 @@
+
 import "../styles/Transcription.css";
 
 export function TranscripInputView(props) {
