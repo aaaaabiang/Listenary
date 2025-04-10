@@ -27,6 +27,5 @@ const HomePagePresenter = observer(function HomePagePresenter(props) {
       onNavigate={handleNavigateACB} // 新增传入
     />
   );
-});
 
 export { HomePagePresenter };
