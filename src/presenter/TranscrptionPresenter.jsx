@@ -24,9 +24,36 @@ const Transcription = observer(function TranscripRender(props) {
 
   return (
     <div>
+
+      <div className="transcription-page">
+        {/* transcription */}
+//         <div className="transcription-input">
+//           <TranscripInputView
+//             url={props.url}
+//             onInputChange={inputHandlerACB}
+//             onSubmit={submitHandlerACB}
+//           />
+        </div>
       {/* Only render the transcription results and audio player */}
-      <div id="transcription">
-        <TranscripResultsView transcripResults={props.model.transcripResults} />
+        <div className="transcription-results" id="transcription">
+          <TranscripResultsView
+            transcripResults={props.model.transcripResults}
+            getTimestamp={getTimestamp}
+            getSentence={getSentence}
+          />
+        </div>
+
+        <div className="audio-player-container">
+          {/* audioplayer */}
+          <NewsKitProvider theme={newskitLightTheme}>
+            <div
+              style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}
+            >
+              <AudioPlayerPresenter audioSrc={props.model.audioUrl} />
+            </div>
+          </NewsKitProvider>
+        </div>
+
       </div>
       {/* Audioplayer */}
       <NewsKitProvider theme={newskitLightTheme}>
@@ -74,13 +101,35 @@ const Transcription = observer(function TranscripRender(props) {
   //save transcription result
   function saveTranscripDataACB(data) {
     if (data) {
+      //add rather than replace
       for (let i = 0; i < data.phrases.length; i++) {
-        const transcript = data.phrases[i] || "no results";
-        props.model.setResults(transcript);
+        const updatedResults = [
+          ...props.model.transcripResults,
+          ...data.phrases,
+        ];
+        props.model.setResults(updatedResults);
       }
     } else {
       console.log("API返回空数据");
     }
+  }
+
+  // format timestamp as hh:mm:ss
+  function getTimestamp(phrase) {
+    const totalMilliseconds = phrase.offsetMilliseconds || 0;
+    const totalSeconds = Math.floor(totalMilliseconds / 1000);
+    const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
+      2,
+      "0"
+    );
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+  }
+
+  //extract the sentence text
+  function getSentence(phrase) {
+    return phrase.text || "No text available";
   }
 });
 
