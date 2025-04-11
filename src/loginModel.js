@@ -1,86 +1,82 @@
-//manage login interface data
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
+import { app } from "./firebaseConfig.js";
+
+// Pure data model for login
 class LoginModel {
     constructor() {
-        this.username = ""
-        this.password = ""
-        this.isLoading = false
-        this.observers = []
+        // Initialize Firebase Auth
+        this.auth = getAuth(app);
+        this.googleProvider = new GoogleAuthProvider();
+        this.isLoading = false;
+        this.user = null;
 
-        // Observer pattern to notify components of state changes
-        this.subscribe = function (observer) {
-            this.observers.push(observer)
-            return function () {
-                this.observers = this.observers.filter((obs) => obs !== observer)
-            }.bind(this)
-        }
+        // Set up initial auth state
+        onAuthStateChanged(this.auth, (user) => {
+            this.user = user;
+        });
+    }
 
-        this.notifyObservers = function () {
+    getIsLoading() {
+        return this.isLoading;
+    }
 
-            this.observers.forEach((observer) => {
-                observer(this)
-            })
-        }
+    getUser() {
+        return this.user;
+    }
 
-        // Data manipulation methods
-        this.setUsername = function (username) {
-            this.username = username
-            this.notifyObservers()
-        }
+    // Firebase auth state monitoring
+    setupAuthStateListener(callback) {
+        return onAuthStateChanged(this.auth, (user) => {
+            this.user = user;
+            if (callback) callback(user);
+        });
+    }
 
-        this.setPassword = function (password) {
-            this.password = password
-            this.notifyObservers()
-        }
-
-        this.clearUsername = function () {
-            this.username = ""
-            this.notifyObservers()
-        }
-
-        this.clearPassword = function () {
-            this.password = ""
-            this.notifyObservers()
-        }
-
-        // Business logic with callbacks
-        this.login = function (callback) {
-
-
-            if (!this.username || !this.password) {
-                callback({ success: false, message: "Username and password are required" })
-                return
+    // Authentication methods
+    googleLogin() {
+        return new Promise((resolve, reject) => {
+            this.isLoading = true;
+            
+            if (this.auth.currentUser) {
+                signOut(this.auth)
+                    .then(() => {
+                        this.user = null;
+                        this.isLoading = false;
+                        resolve({ success: true });
+                    })
+                    .catch((error) => {
+                        this.isLoading = false;
+                        reject({ success: false, error: error.message });
+                    });
+            } else {
+                signInWithPopup(this.auth, this.googleProvider)
+                    .then((result) => {
+                        this.user = result.user;
+                        this.isLoading = false;
+                        resolve({ success: true, user: result.user });
+                    })
+                    .catch((error) => {
+                        this.isLoading = false;
+                        reject({ success: false, error: error.message });
+                    });
             }
+        });
+    }
 
-            this.isLoading = true
-            this.notifyObservers()
-
-            // Simulate API call with setTimeout
-            setTimeout(() => {
-                console.log("Login attempt with:", { username: this.username, password: this.password })
-
-                // In a real app, you would make an actual API call here
-                var response = { success: true }
-
-                this.isLoading = false
-                this.notifyObservers()
-
-                callback(response)
-            }, 1000)
-        }
-
-        this.socialLogin = (provider, callback) => {
-            console.log("Login with " + provider)
-            // In a real app, you would initiate OAuth flow
-            // Simulate API call with setTimeout
-            setTimeout(() => {
-                callback({ success: true, provider: provider })
-            }, 500)
-        }
+    logout() {
+        return signOut(this.auth)
+            .then(() => {
+                this.user = null;
+                return { success: true };
+            })
+            .catch((error) => {
+                return { success: false, error: error.message };
+            });
     }
 }
-  
-  // Create and export a singleton instance
-  const loginModel = new LoginModel()
-  export default loginModel
+
+// Create and export a singleton instance
+const loginModel = new LoginModel();
+export default loginModel;
   
   

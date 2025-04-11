@@ -3,83 +3,64 @@ import loginModel from "../loginModel.js"
 import LoginView from "../views/loginPageView.jsx"
 
 function LoginPresenter() {
-  // Local state to trigger re-renders when model changes 当模型改变时触发重新渲染的本地状态
+  // Local state to manage view updates
   const [modelState, setModelState] = useState({
-    username: loginModel.username,
-    password: loginModel.password,
-    isLoading: loginModel.isLoading,
+    isLoading: loginModel.getIsLoading(),
+    user: loginModel.getUser()
   })
 
-  // Subscribe to model changes 订阅模型变更
+  // Update view state when auth state changes
   useEffect(() => {
-    const unsubscribe = loginModel.subscribe((model) => {
-      setModelState({
-        username: model.username,
-        password: model.password,
-        isLoading: model.isLoading,
+    const unsubscribe = loginModel.setupAuthStateListener((user) => {
+      updateViewState();
+    });
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, []);
+
+  // Helper function to update view state from model
+  const updateViewState = () => {
+    setModelState({
+      isLoading: loginModel.getIsLoading(),
+      user: loginModel.getUser()
+    });
+  };
+
+  function handleGoogleLogin(e) {
+    e.preventDefault();
+    loginModel.googleLogin()
+      .then((result) => {
+        console.log("Google login successful");
+        // 登录成功后重定向到主页
+        window.location.href = '/#/';
       })
-    })
-
-    // Cleanup subscription on unmount 卸载时清理订阅
-    return unsubscribe
-  }, [])
-
-  // Event handlers that interact with the model 与模型交互的事件处理程序
-  function handleUsernameChange(e) {
-    loginModel.setUsername(e.target.value)
+      .catch((error) => {
+        console.error("Google login failed:", error.message);
+        alert("Login failed: " + error.message);
+      });
   }
 
-  function handlePasswordChange(e) {
-    loginModel.setPassword(e.target.value)
+  function handleLogout() {
+    loginModel.logout()
+      .then(() => {
+        console.log("Logout successful");
+        // 可以选择是否重定向到其他页面
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error.message);
+        alert("Logout failed: " + error.message);
+      });
   }
 
-  function handleClearUsername() {
-    loginModel.clearUsername()
-  }
-
-  function handleClearPassword() {
-    loginModel.clearPassword()
-  }
-
-  function handleLogin(e) {
-    e.preventDefault()
-
-    loginModel.login((result) => {
-      if (result.success) {
-        // Handle successful login (eg.redirect) 跳转页面
-        console.log("Login successful")
-      } else {
-        // Handle login failure
-        console.error("Login failed:", result.message)
-      }
-    })
-  }
-
-  function handleRegister() {
-    console.log("Register clicked")
-  }
-
-  function handleSocialLogin(provider) {
-    loginModel.socialLogin(provider, (result) => {
-      if (result.success) {
-        console.log(provider + " login successful")
-      }
-    })
-  }
-
-  // Pass data and event handlers to the view!
+  // Pass data and event handlers to the view
   return (
     <LoginView
-      username={modelState.username}
-      password={modelState.password}
       isLoading={modelState.isLoading}
-      onUsernameChange={handleUsernameChange}
-      onPasswordChange={handlePasswordChange}
-      onClearUsername={handleClearUsername}
-      onClearPassword={handleClearPassword}
-      onLogin={handleLogin}
-      onRegister={handleRegister}
-      onSocialLogin={handleSocialLogin}
+      user={modelState.user}
+      onGoogleLogin={handleGoogleLogin}
+      onLogout={handleLogout}
     />
   )
 }
