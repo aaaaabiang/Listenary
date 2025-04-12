@@ -1,7 +1,21 @@
 const express = require("express");
 const axios = require("axios");
 const Parser = require('rss-parser'); // 添加 RSS 解析器
-const parser = new Parser();
+
+// 配置 RSS 解析器以包含更多播客相关字段
+const parser = new Parser({
+  customFields: {
+    feed: ['image', 'language', 'copyright'],
+    item: [
+      'itunes:duration',
+      'itunes:image',
+      'itunes:episode',
+      'itunes:season',
+      'itunes:summary',
+      'enclosure'
+    ],
+  },
+});
 
 const app = express();
 const PORT = 3001;
@@ -29,7 +43,7 @@ app.get("/proxy", async (req, res) => {
 
 // 添加 RSS feed 解析路由
 app.get("/api/rss", async (req, res) => {
-  const feedUrl = req.query.url; // 从查询参数获取 RSS feed URL
+  const feedUrl = req.query.url;
   
   if (!feedUrl) {
     return res.status(400).json({ error: "RSS feed URL is required" });
@@ -40,7 +54,23 @@ app.get("/api/rss", async (req, res) => {
     res.json({
       title: feed.title,
       description: feed.description,
-      items: feed.items
+      image: feed.image?.url || feed.itunes?.image,
+      link: feed.link,
+      language: feed.language,
+      copyright: feed.copyright,
+      items: feed.items.map(item => ({
+        title: item.title,
+        description: item.contentSnippet || item.description,
+        pubDate: item.pubDate || item.isoDate,
+        link: item.link,
+        guid: item.guid,
+        duration: item['itunes:duration'],
+        image: item['itunes:image']?.href || feed.image?.url,
+        episode: item['itunes:episode'],
+        season: item['itunes:season'],
+        summary: item['itunes:summary'],
+        enclosure: item.enclosure
+      }))
     });
   } catch (error) {
     console.error("RSS解析失败：", error.message);
