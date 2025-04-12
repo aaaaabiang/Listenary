@@ -52,8 +52,7 @@ export class RssModel {
   getArticles() {
     return this.articles;
   }
-  
-  //订阅者模式
+
   subscribe(callback) {
     this.subscribers.push(callback);
     return () => {
@@ -67,17 +66,16 @@ export class RssModel {
 }
 
 // 测试函数
-function testRssParser() {
-    fetchRssFeed('https://feeds.bbci.co.uk/news/rss.xml', (error, feedData) => {
-      if (error) {
-        console.error('测试失败:', error);
-        return;
-      }
-      console.log('RSS Feed 标题:', feedData.title);
-      console.log('RSS Feed 描述:', feedData.description);
-      console.log('第一条内容:', feedData.items[0]);
-    });
+async function testRssParser() {
+  try {
+    const feedData = await fetchRssFeed('https://feeds.bbci.co.uk/news/rss.xml');
+    console.log('RSS Feed 标题:', feedData.title);
+    console.log('RSS Feed 描述:', feedData.description);
+    console.log('第一条内容:', feedData.items[0]);
+  } catch (error) {
+    console.error('测试失败:', error);
   }
-  
-  testRssParser();
-  
+}
+
+// 执行测试
+testRssParser();

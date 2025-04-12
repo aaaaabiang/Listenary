@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
-import RssPresenter from "./presenter/rssPresenter";
+import { RssPresenter } from "./presenter/rssPresenter";
 
 export const ReactRoot = observer(function ReactRoot(props) {
   return (
