@@ -125,43 +125,50 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
         </div>
       </div>
 
-      {showDictionary && dictionaryPosition && (
-        <div 
-          className="dictionary-card"
-          style={{
-            top: `${dictionaryPosition.top}px`,
-            left: `${dictionaryPosition.left}px`
-          }}
-        >
-          <div className="word-header">
-            <h3 className="word-text">{selectedText}</h3>
-            <span className="word-level">B2</span>
-          </div>
-          <div className="word-phonetics">
-            <div className="phonetic">
-              <span className="phonetic-label">UK</span>
-              <span className="phonetic-text">/ˈsʌmθɪŋ/</span>
-            </div>
-            <div className="phonetic">
-              <span className="phonetic-label">US</span>
-              <span className="phonetic-text">/ˈsʌmθɪŋ/</span>
-            </div>
-          </div>
-          <div className="word-definition">
-            <p>1. used to refer to an unspecified thing</p>
-            <p>2. an unspecified amount or number</p>
-          </div>
-          <div className="word-examples">
-            <p>"I need something to eat."</p>
-            <p>"There's something wrong with the car."</p>
-          </div>
-          <button 
-            className="add-to-wordlist-btn"
-            onClick={handleAddToWordlist}
+      {/* Dictionary Card */}
+      {showDictionary && (
+        <>
+          <div 
+            className="dictionary-mask"
+            onClick={() => setShowDictionary(false)}
+          />
+          <div 
+            className="dictionary-card"
+            style={{
+              top: `${dictionaryPosition.top}px`,
+              left: `${dictionaryPosition.left}px`
+            }}
           >
-            Add to Wordlist
-          </button>
-        </div>
+            <div className="word-header">
+              <h3 className="word-text">{selectedText}</h3>
+              <span className="word-level">B2</span>
+            </div>
+            <div className="word-phonetics">
+              <div className="phonetic">
+                <span className="phonetic-label">UK</span>
+                <span className="phonetic-text">/ˈsʌmθɪŋ/</span>
+              </div>
+              <div className="phonetic">
+                <span className="phonetic-label">US</span>
+                <span className="phonetic-text">/ˈsʌmθɪŋ/</span>
+              </div>
+            </div>
+            <div className="word-definition">
+              <p>1. used to refer to an unspecified thing</p>
+              <p>2. an unspecified amount or number</p>
+            </div>
+            <div className="word-examples">
+              <p>"I need something to eat."</p>
+              <p>"There's something wrong with the car."</p>
+            </div>
+            <button 
+              className="add-to-wordlist-btn"
+              onClick={handleAddToWordlist}
+            >
+              Add to Wordlist
+            </button>
+          </div>
+        </>
       )}
 
       {/* Audio Player */}
