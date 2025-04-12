@@ -3,6 +3,7 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 /* Top Navigation */
@@ -16,12 +17,29 @@
   z-index: 100;
 }
 
-.nav-links {
+.nav-container {
   display: flex;
-  justify-content: flex-end;
-  gap: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.brand-link {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.brand-link:hover {
+  color: #1a56db;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .nav-link {
@@ -36,38 +54,18 @@
   color: #1a56db;
 }
 
-/* Main Content */
-.podcast-play-content {
-  display: flex;
-  gap: 2rem;
+/* Podcast Info Header */
+.podcast-info-header {
   padding: 2rem;
-  max-width: 1400px;
-  margin: 2rem auto;
-  flex: 1;
-}
-
-/* Left Section - Content */
-.content-section {
-  flex: 1;
-  max-width: 800px;
-}
-
-.podcast-info {
-  margin-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
 }
 
 .podcast-title {
   font-size: 2rem;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 1rem;
-}
-
-.podcast-description {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #4b5563;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .podcast-meta {
@@ -75,6 +73,204 @@
   gap: 1rem;
   color: #6b7280;
   font-size: 0.875rem;
+}
+
+/* Main Content */
+.podcast-play-content {
+  padding: 2rem;
+  flex: 1;
+  overflow: auto;
+  transition: opacity 0.2s ease;
+  position: relative;
+}
+
+.podcast-play-content.dimmed {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Transcript Container */
+.transcript-container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Transcript Header */
+.transcript-header {
+  display: grid;
+  grid-template-columns: 0.8fr 2fr 1.2fr;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.transcript-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.translation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-select {
+  min-width: 100px;
+  font-size: 0.875rem;
+}
+
+/* Transcript Content */
+.transcript-content {
+  max-height: calc(100vh - 400px);
+  overflow-y: auto;
+}
+
+.transcript-row {
+  display: grid;
+  grid-template-columns: 0.8fr 2fr 1.2fr;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.transcript-row:hover {
+  background-color: #f9fafb;
+}
+
+.transcript-row:last-child {
+  border-bottom: none;
+}
+
+.timestamp-cell,
+.transcription-cell,
+.translation-cell {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+}
+
+.timestamp-cell {
+  color: #6b7280;
+}
+
+.transcription-cell,
+.translation-cell {
+  color: #111827;
+}
+
+/* Dictionary Overlay */
+.dictionary-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 150;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Dictionary Card */
+.dictionary-card {
+  position: fixed;
+  width: 320px;
+  height: auto;
+  max-height: 400px;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 151;
+  animation: fadeIn 0.2s ease-out;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.word-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.word-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.word-level {
+  padding: 0.25rem 0.5rem;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 500;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+}
+
+.word-phonetics {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.phonetic {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.phonetic-label {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.phonetic-text {
+  color: #111827;
+  font-family: monospace;
+}
+
+.word-definition {
+  margin-bottom: 1rem;
+  color: #374151;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.word-examples {
+  color: #4b5563;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.example {
+  margin: 0.5rem 0;
+  font-style: italic;
+  color: #6b7280;
 }
 
 /* Bottom Audio Player */
@@ -179,4 +375,26 @@
 
 .term:hover {
   background-color: #e5e7eb;
+}
+
+.add-to-wordlist-btn {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-to-wordlist-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.add-to-wordlist-btn:active {
+  background-color: #1e40af;
 } 
