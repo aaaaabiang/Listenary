@@ -1,26 +1,44 @@
 {
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.2.6"
-  },
+  "name": "jigao-liyuans-ruopeng-yuezhe-vt25-project",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^7.0.2",
-    "express": "^5.1.0",
-    "firebase": "~11.0.2",
-    "mobx": "~6.13.5",
-    "mobx-react-lite": "~4.0.7",
-    "newskit": "^7.7.3",
-    "react": "~18.3.1",
-    "react-dom": "~18.3.1",
-    "react-h5-audio-player": "^3.10.0-rc.1",
-    "react-router-dom": "^6.8.1"
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "mobx": "^6.12.0",
+    "mobx-react-lite": "^4.0.5",
+    "newskit": "^0.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.1",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

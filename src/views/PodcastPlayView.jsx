@@ -1,13 +1,12 @@
 import '../styles/PodcastPlay.css';
 import { NewsKitProvider, newskitLightTheme } from "newskit";
 import { useState, useCallback } from 'react';
-import { Select, MenuItem, FormControl } from '@mui/material';
 
 export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = [], onWordSelect }) {
   const [selectedText, setSelectedText] = useState('');
   const [showDictionary, setShowDictionary] = useState(false);
   const [dictionaryPosition, setDictionaryPosition] = useState(null);
-  const [targetLanguage, setTargetLanguage] = useState('zh'); // 默认中文
+  const [targetLanguage, setTargetLanguage] = useState('zh'); // Default to Chinese
 
   const languages = [
     { code: 'en', name: 'English' },
@@ -20,7 +19,7 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
 
   const handleLanguageChange = (event) => {
     setTargetLanguage(event.target.value);
-    // TODO: 触发重新翻译的逻辑
+    // TODO: Trigger retranslation logic
   };
 
   const handleTextSelection = useCallback(() => {
@@ -30,16 +29,16 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
       
-      // 计算浮窗位置，显示在选中文本的右上方
+      // Calculate popup position, show at the top right of selected text
       const position = {
-        top: Math.max(10, rect.top), // 确保不超出顶部
-        left: rect.right + 10 // 右侧偏移10px
+        top: Math.max(10, rect.top), // Ensure not exceeding top boundary
+        left: rect.right + 10 // Offset 10px to the right
       };
       
-      // 检查是否会超出右侧边界
+      // Check if exceeding right boundary
       const windowWidth = window.innerWidth;
-      if (position.left + 320 > windowWidth) { // 320px 是浮窗宽度
-        position.left = rect.left - 330; // 左侧显示，预留10px间距
+      if (position.left + 320 > windowWidth) { // 320px is popup width
+        position.left = rect.left - 330; // Show on left side, leave 10px margin
       }
       
       setSelectedText(text);
@@ -55,14 +54,14 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
   }, []);
 
   const handleAddToWordlist = useCallback(() => {
-    // 这里添加将单词添加到生词本的逻辑
+    // Add logic for adding word to wordlist
     console.log('Adding to wordlist:', selectedText);
-    // TODO: 实现添加到生词本的功能
+    // TODO: Implement add to wordlist functionality
   }, [selectedText]);
 
   return (
     <div className="podcast-play-page">
-      {/* Top Navigation */}
+      {/* Navigation Bar */}
       <nav className="top-nav">
         <div className="nav-container">
           <a href="/#/" className="brand-link">Listenary</a>
@@ -92,20 +91,19 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
             </div>
             <div className="translation-header">
               <h3>Translation</h3>
-              <FormControl size="small">
-                <Select
+              <div className="language-select-container">
+                <select
                   value={targetLanguage}
                   onChange={handleLanguageChange}
                   className="language-select"
-                  variant="outlined"
                 >
                   {languages.map((lang) => (
-                    <MenuItem key={lang.code} value={lang.code}>
+                    <option key={lang.code} value={lang.code}>
                       {lang.name}
-                    </MenuItem>
+                    </option>
                   ))}
-                </Select>
-              </FormControl>
+                </select>
+              </div>
             </div>
           </div>
           
@@ -127,44 +125,46 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
         </div>
       </div>
 
-      {showDictionary && (
-        <div className="dictionary-overlay" onClick={handleOverlayClick}>
-          <div 
-            className="dictionary-card"
-            style={dictionaryPosition}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="word-header">
-              <h2 className="word-text">{selectedText}</h2>
-              <div className="word-level">B1</div>
-            </div>
-            <div className="word-phonetics">
-              <div className="phonetic">
-                <span className="phonetic-label">英</span>
-                <span className="phonetic-text">/example/</span>
-              </div>
-              <div className="phonetic">
-                <span className="phonetic-label">美</span>
-                <span className="phonetic-text">/example/</span>
-              </div>
-            </div>
-            <div className="word-definition">
-              <p>Example definition for the selected word or phrase.</p>
-            </div>
-            <div className="word-examples">
-              <p className="example">Example usage of the selected word.</p>
-            </div>
-            <button 
-              className="add-to-wordlist-btn"
-              onClick={handleAddToWordlist}
-            >
-              Add to Wordlist
-            </button>
+      {showDictionary && dictionaryPosition && (
+        <div 
+          className="dictionary-card"
+          style={{
+            top: `${dictionaryPosition.top}px`,
+            left: `${dictionaryPosition.left}px`
+          }}
+        >
+          <div className="word-header">
+            <h3 className="word-text">{selectedText}</h3>
+            <span className="word-level">B2</span>
           </div>
+          <div className="word-phonetics">
+            <div className="phonetic">
+              <span className="phonetic-label">UK</span>
+              <span className="phonetic-text">/ˈsʌmθɪŋ/</span>
+            </div>
+            <div className="phonetic">
+              <span className="phonetic-label">US</span>
+              <span className="phonetic-text">/ˈsʌmθɪŋ/</span>
+            </div>
+          </div>
+          <div className="word-definition">
+            <p>1. used to refer to an unspecified thing</p>
+            <p>2. an unspecified amount or number</p>
+          </div>
+          <div className="word-examples">
+            <p>"I need something to eat."</p>
+            <p>"There's something wrong with the car."</p>
+          </div>
+          <button 
+            className="add-to-wordlist-btn"
+            onClick={handleAddToWordlist}
+          >
+            Add to Wordlist
+          </button>
         </div>
       )}
 
-      {/* Bottom Audio Player */}
+      {/* Audio Player */}
       <div className="bottom-audio-player">
         <NewsKitProvider theme={newskitLightTheme}>
           <AudioPlayer audioSrc={podcastData.audioUrl} />
