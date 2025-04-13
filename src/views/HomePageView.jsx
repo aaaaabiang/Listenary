@@ -2,13 +2,14 @@ import '../styles/HomePage.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function HomePageView({ onRssSubmit }) {
+export function HomePageView({ url, onInputChange, onSubmit }) {
   const navigate = useNavigate();
-  const [rssUrl, setRssUrl] = useState('');
+  //const [rssUrl, setRssUrl] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/podcast-channel');
+    // navigate('/podcast-channel');
+    onSubmit(); // 交给父组件处理逻辑
   };
 
   return (
@@ -28,9 +29,9 @@ export function HomePageView({ onRssSubmit }) {
         <input 
           type="text" 
           className="search-input"
-          placeholder="Search for podcasts"
-          value={rssUrl}
-          onChange={(e) => setRssUrl(e.target.value)}
+          placeholder="Enter podcast RSS link to get transcription"
+          value={url} // 从 props 获取
+          onChange={onInputChange} // 控制状态
         />
         <button type="submit" className="search-button">
           <span className="search-icon">🔍</span>

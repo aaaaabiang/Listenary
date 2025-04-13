@@ -7,26 +7,27 @@ const HomePagePresenter = observer(function HomePagePresenter(props) {
   const navigate = useNavigate();
 
   function inputHandlerACB(event) {
-    props.model.setAudioUrl(event.target.value);
+    props.model.setRssUrl(event.target.value);
   }
 
-  function submitHandlerACB() {
-    props.model.setAudioUrl(props.model.audioUrl); // 如果已有逻辑的话
-  }
+  // // 用户输入 RSS 链接
+  // function rssInputHandlerACB(event) {
+  //   props.model.setRssUrl(event.target.value);
+  // }
 
-  function handleNavigateACB() {
-    navigate("/Transcription");  
+  // 加载并跳转到 Podcast 页面
+  async function submitHandlerACB() {
+    await props.model.loadRssData();
+    navigate("/podcast-channel");
   }
-
+  
   return (
     <HomePageView
-      model={props.model}
-      url={props.model.audioUrl}
-      onInputChange={inputHandlerACB}
-      onSubmit={submitHandlerACB}
-      onNavigate={handleNavigateACB} // 新增传入
-      />
-    );
-  }); 
+    url={props.model.rssUrl}
+    onInputChange={inputHandlerACB}
+    onSubmit={submitHandlerACB}
+    />
+  );
+});
 
 export { HomePagePresenter };
