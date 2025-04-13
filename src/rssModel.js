@@ -1,5 +1,28 @@
 import { fetchRssFeed } from './services';
 
+function formatDuration(duration) {
+  if (!duration) return 'Unknown';
+
+  if (typeof duration === 'number') {
+    const m = Math.floor(duration / 60);
+    const s = duration % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
+  if (typeof duration === 'string') {
+    if (/^\d+$/.test(duration)) {
+      // 纯数字秒数
+      return formatDuration(Number(duration));
+    }
+    if (/^\d{1,2}:\d{2}$/.test(duration) || /^\d{1,2}:\d{2}:\d{2}$/.test(duration)) {
+      // 已是标准格式
+      return duration;
+    }
+  }
+
+  return 'Unknown';
+}
+
 export class RssModel {
   constructor() {
     this.feed = null;
@@ -22,7 +45,8 @@ export class RssModel {
           title: item.title,
           description: item.contentSnippet || item.description,
           pubDate: item.pubDate || item.isoDate,
-          duration: item.itunes?.duration,
+          // duration: item.itunes?.duration,//时长无法显示
+          duration: formatDuration(item.itunes?.duration),
           episode: item.itunes?.episode,
           season: item.itunes?.season,
           image: item.itunes?.image || data.image,
