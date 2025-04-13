@@ -17,22 +17,18 @@ const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
     {
       timestamp: "00:00:15",
       text: "Welcome to Women Amplified. Today we're discussing leadership from a feminine perspective.",
-      translation: "欢迎收听Women Amplified。今天我们将从女性视角探讨领导力。"
     },
     {
       timestamp: "00:00:30",
       text: "Our guest today shares her journey of embracing authentic leadership.",
-      translation: "我们今天的嘉宾将分享她拥抱真实领导力的旅程。"
     },
     {
       timestamp: "00:00:45",
       text: "She'll explain why traditional leadership models need to evolve.",
-      translation: "她将解释为什么传统的领导力模式需要进化。"
     },
     {
       timestamp: "00:01:00",
       text: "Let's explore how feminine qualities can enhance leadership effectiveness.",
-      translation: "让我们一起探讨女性特质如何提升领导效能。"
     }
   ];
 

@@ -1,28 +1,64 @@
 import '../styles/PodcastPlay.css';
 import { NewsKitProvider, newskitLightTheme } from "newskit";
 import { useState, useCallback } from 'react';
+import TranslationAPI from '../test/TranslationAPI';
 
 export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = [], onWordSelect }) {
   const [selectedText, setSelectedText] = useState('');
   const [showDictionary, setShowDictionary] = useState(false);
   const [dictionaryPosition, setDictionaryPosition] = useState(null);
-  const [targetLanguage, setTargetLanguage] = useState('zh'); // Default to Chinese
+  const [targetLanguage, setTargetLanguage] = useState('');
+  const [translations, setTranslations] = useState({});
+  const [translatingItems, setTranslatingItems] = useState(new Set());
 
   const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'zh', name: '中文' },
-    { code: 'de', name: 'Deutsch' },
-    { code: 'sv', name: 'Svenska' },
-    { code: 'fr', name: 'Français' },
-    { code: 'nl', name: 'Nederlands' }
+    { code: '', name: 'Choose Language' },
+    { code: 'ZH-HANS', name: '中文' },
+    { code: 'DE', name: 'Deutsch' },
+    { code: 'SV', name: 'Svenska' },
+    { code: 'FR', name: 'Français' },
+    { code: 'NL', name: 'Nederlands' }
   ];
 
-  const handleLanguageChange = (event) => {
-    setTargetLanguage(event.target.value);
-    // TODO: Trigger retranslation logic
+  const handleLanguageChange = async (event) => {
+    const newTargetLang = event.target.value;
+    setTargetLanguage(newTargetLang);
+    
+    if (!newTargetLang) {
+      setTranslations({});
+      setTranslatingItems(new Set());
+      return;
+    }
+
+    // 标记所有项目为正在翻译状态
+    const translatingSet = new Set(transcriptionData.map(item => item.text));
+    setTranslatingItems(translatingSet);
+
+    const newTranslations = {};
+    
+    // Translate each item in the transcription data
+    for (const item of transcriptionData) {
+      const translator = TranslationAPI({ 
+        textToTranslate: item.text,
+        targetLang: newTargetLang,
+        onTranslationComplete: (translatedText) => {
+          setTranslations(prev => ({
+            ...prev,
+            [item.text]: translatedText
+          }));
+          setTranslatingItems(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(item.text);
+            return newSet;
+          });
+        }
+      });
+      translator.translate();
+    }
   };
 
   const handleTextSelection = useCallback(() => {
+    {/*Use useCallback to prevent recreating the function on every render*/}
     const selection = window.getSelection();
     const text = selection.toString().trim();
     if (text) {
@@ -116,8 +152,12 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
                 <div className="transcription-cell" onMouseUp={handleTextSelection}>
                   {item.text}
                 </div>
-                <div className="translation-cell" onMouseUp={handleTextSelection}>
-                  {item.translation}
+                <div className="translation-cell">
+                  {targetLanguage && (
+                    translatingItems.has(item.text) ? 
+                    "Loading..." : 
+                    translations[item.text]
+                  )}
                 </div>
               </div>
             ))}

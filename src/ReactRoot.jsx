@@ -28,10 +28,6 @@ export function makeRouter(ReactiveModel) {
       element: <WordlistPresenter model={ReactiveModel} />,
     },
     {
-      path: "/translation-test",
-      element: <TranslationAPI />,
-    },
-    {
       path: "/Transcription",
       element: <Transcription model={ReactiveModel} />,
     },
