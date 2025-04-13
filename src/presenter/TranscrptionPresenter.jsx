@@ -43,14 +43,18 @@ const Transcription = observer(function TranscripRender(props) {
           />
         </div>
 
-      </div className="audio-player-container">
-      {/* Audioplayer */}
-      <NewsKitProvider theme={newskitLightTheme}>
-        <div style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}>
-          <TitleBar>NewsKit Audio Player Demo</TitleBar>
-          <AudioPlayerPresenter audioSrc={props.model.audioUrl} />
+        <div className="audio-player-container">
+          {/* Audioplayer */}
+          <NewsKitProvider theme={newskitLightTheme}>
+            <div
+              style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}
+            >
+              <TitleBar>NewsKit Audio Player Demo</TitleBar>
+              <AudioPlayerPresenter audioSrc={props.model.audioUrl} />
+            </div>
+          </NewsKitProvider>
         </div>
-      </NewsKitProvider>
+      </div>
     </div>
   );
 
