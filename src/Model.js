@@ -1,12 +1,11 @@
 import { resolvePromise } from "./resolvePromise.js";
 import { speechToText } from "./speechToText.js";
 
-
 export const model = {
   audioUrl: "",
+  audioFile: null, // store audio file
   transcripResults: [],
   transcripResultsPromiseState: "",
-
   // 新增：RSS 相关状态
   rssUrl: "",
   podcastChannelInfo: null,
@@ -16,8 +15,19 @@ export const model = {
   setResults(results) {
     this.transcripResults = [].concat(results); //MobX 中，直接赋值代理数组会导致更新失败。
   },
+  
   setAudioUrl(url) {
     this.audioUrl = url;
+  },
+  setAudioFile(file) {
+    this.audioFile = file;
+  },
+
+  setAudioDuration(duration) {
+    this.audioDuration = duration;
+  },
+  setResults(results) {
+    this.transcripResults = [].concat(results); //MobX 中，直接赋值代理数组会导致更新失败。
   },
 
   // 新增
@@ -54,7 +64,7 @@ export const model = {
       this.podcastLoadError = err.message;
     }
   },
-
+  
   //store asr api result in transcrip result promise state
   getTranscription(params) {
     resolvePromise(speechToText(params), transcripResultsPromiseState);
