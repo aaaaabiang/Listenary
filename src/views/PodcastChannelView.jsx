@@ -1,16 +1,10 @@
 import '../styles/PodcastChannel.css';
+import { TopNav } from '../components/TopNav';
 
 export function PodcastChannelView({ channelInfo, episodes, isSaved, onSave, onPlay }) {
   return (
-    <div className="podcast-channel-page">
-      {/* Top Navigation */}
-      <nav className="top-nav">
-        <div className="nav-links">
-          <a href="/#/wordlist" className="nav-link">Wordlist</a>
-          <a href="/#/login" className="nav-link">Login</a>
-        </div>
-      </nav>
-
+    <div className="page-container">
+      <TopNav />
       <div className="podcast-channel">
         {/* Channel Header */}
         <div className="channel-header">

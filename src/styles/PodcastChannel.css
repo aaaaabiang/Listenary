@@ -3,7 +3,7 @@
   background-color: #fff;
 }
 
-/* Top Navigation */
+/* Navigation Bar */
 .top-nav {
   width: 100%;
   padding: 1rem 2rem;
@@ -14,12 +14,30 @@
   z-index: 100;
 }
 
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.brand-link {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.brand-link:hover {
+  color: #1a56db;
+}
+
 .nav-links {
   display: flex;
   justify-content: flex-end;
   gap: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 .nav-link {
@@ -46,8 +64,6 @@
   display: flex;
   gap: 2rem;
   margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #e5e7eb;
 }
 
 .channel-cover {
@@ -94,7 +110,7 @@
   color: #fff;
   background-color: #0066ff;
   border: none;
-  border-radius: 9999px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -120,27 +136,25 @@
   font-size: 1.5rem;
   font-weight: 600;
   color: #111827;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .episodes-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .episode-card {
   display: flex;
   gap: 1.5rem;
   padding: 1.5rem;
-  background-color: #f9fafb;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
 }
 
 .episode-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: #f9fafb;
 }
 
 .episode-cover {

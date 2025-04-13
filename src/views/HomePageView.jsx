@@ -2,33 +2,15 @@ import '../styles/HomePage.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-  {/* export function HomePageView({ onRssSubmit }) {
+export function HomePageView({ onRssSubmit }) {
   const navigate = useNavigate();
   const [rssUrl, setRssUrl] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 直接导航到播客频道页面，使用默认的 RSS URL
     navigate('/podcast-channel');
-  }; */}
-
-export function HomePageView(props) {
-
-  {/*const handleSubmitAndNavigate = () => {
-    if (props.onSubmit) props.onSubmit();  // 触发 Transcription 中的 submitHandlerACB
-    console.log("props.onSubmit", props.onSubmit);
-    window.location.hash = 'transcription'; // 立即跳转
-  };*/}
-
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 同时执行提交逻辑和导航
-    if (props.onSubmit) props.onSubmit();
-    navigate('/Transcription'); // 使用React Router的标准导航方式
   };
-  
+
   return (
     <div className="homepage-container">
       <nav className="top-nav">
@@ -44,11 +26,11 @@ export function HomePageView(props) {
       
       <form className="search-container" onSubmit={handleSubmit}>
         <input 
-          type="text"
-          className="search-input"  // 保持main的样式类名
-          placeholder="Input RSS link to get podcast transcription"
-          value={props.url}
-          onChange={props.onInputChange}
+          type="text" 
+          className="search-input"
+          placeholder="Search for podcasts"
+          value={rssUrl}
+          onChange={(e) => setRssUrl(e.target.value)}
         />
         <button type="submit" className="search-button">
           <span className="search-icon">🔍</span>
@@ -68,7 +50,7 @@ export function HomePageView(props) {
         </div>
 
         <div className="saved-grid">
-          {/* 保持main的编号展示样式 */}
+          {/* Placeholder for saved items */}
           <div className="saved-item">
             <span className="item-number">1st</span>
           </div>
@@ -88,4 +70,3 @@ export function HomePageView(props) {
     </div>
   );
 }
-
