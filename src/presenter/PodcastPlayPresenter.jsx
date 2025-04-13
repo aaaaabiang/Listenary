@@ -4,7 +4,7 @@ import AudioPlayerPresenter from "./NewsKitPlayerPresenter";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { speechToText } from "..////speechToText"; // API HERE
+import { speechToText } from "../speechToText"; // API HERE
 const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
 
   const location = useLocation();
@@ -17,6 +17,8 @@ const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
   useEffect(() => {
     if (!episode) return;
     setIsLoading(true);
+    console.log(" episode:", episode);
+    console.log("🔗 episode.audioUrl:", episode?.audioUrl);
     speechToText({ url: episode.audioUrl })
       .then((result) => {
         setTranscriptionData(result);

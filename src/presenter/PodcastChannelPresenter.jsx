@@ -1,15 +1,23 @@
 import { observer } from "mobx-react-lite";
 import { PodcastChannelView } from "../views/PodcastChannelView";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 const PodcastChannelPresenter = observer(function PodcastChannelPresenter(props) {
-  // Mock data - should be fetched from RSS feed in actual implementation
   const [isSaved, setIsSaved] = useState(false);
   const navigate = useNavigate();
 
+  const model = props.model;
   const channelInfo = props.model.podcastChannelInfo;
   const episodes = props.model.podcastEpisodes;
+
+    // 新增 useEffect：首次挂载或刷新时自动加载数据
+    useEffect(() => {
+      if (!episodes.length && model.rssUrl) {
+        model.loadRssData();
+      }
+    }, [episodes.length, model.rssUrl]);
+  
   
   // const channelInfo = {
   //   title: "Women Amplified",
