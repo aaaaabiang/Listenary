@@ -2,6 +2,14 @@
   "name": "jigao-liyuans-ruopeng-yuezhe-vt25-project",
   "version": "1.0.0",
   "private": true,
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://gits-15.sys.kth.se/iprog-students/jigao-liyuans-ruopeng-yuezhe-vt25-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
@@ -11,7 +19,7 @@
     "axios": "^1.8.4",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "firebase": "~11.0.2",
+    "firebase": "^11.6.0",
     "mobx": "^6.13.5",
     "mobx-react-lite": "^4.0.7",
     "newskit": "^7.7.3",
@@ -23,13 +31,15 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^5.1.4"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.2.6",
+    "vitest": "^3.1.1"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "eslintConfig": {
     "extends": [
@@ -48,13 +58,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "https://gits-15.sys.kth.se/iprog-students/jigao-liyuans-ruopeng-yuezhe-vt25-Project.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
