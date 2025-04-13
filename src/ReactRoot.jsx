@@ -2,6 +2,12 @@ import { observer } from "mobx-react-lite";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { HomePagePresenter } from "./presenter/HomePagePresenter";
 import { Transcription } from "./presenter/TranscrptionPresenter";
+import { WordlistPresenter } from "./presenter/WordlistPresenter";
+import PodcastChannelPresenter from "./presenter/PodcastChannelPresenter";
+import PodcastPlayPresenter from "./presenter/PodcastPlayPresenter";
+import TranslationAPI from "./test/TranslationAPI";
+import LoginPresenter from "./presenter/loginPagePresenter.jsx";
+import { RssPresenter } from "./presenter/rssPresenter";
 
 const ReactRoot = observer(function ReactRoot(props) {
   return (
@@ -18,10 +24,29 @@ export function makeRouter(ReactiveModel) {
       path: "/",
       element: <HomePagePresenter model={ReactiveModel} />,
     },
-    //add Transcription router
+    {
+      path: "/wordlist",
+      element: <WordlistPresenter model={ReactiveModel} />,
+    },
     {
       path: "/Transcription",
       element: <Transcription model={ReactiveModel} />,
     },
+    {
+      path: "/login",
+      element: <LoginPresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/podcast-channel",
+      element: <PodcastChannelPresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/podcast-play",
+      element: <PodcastPlayPresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/rss-test",
+      element: <RssPresenter />,
+    }
   ]);
 }

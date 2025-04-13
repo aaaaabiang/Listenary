@@ -2,15 +2,11 @@ import { observer } from "mobx-react-lite";
 import { reaction } from "mobx";
 import { TranscripResultsView } from "../views/TranscripResultsView.jsx";
 import { TranscripInputView } from "../views/TranscripInputView.jsx";
-import { HomePageView } from "../views/HomePageView.jsx";
 import "../styles/Transcription.css";
-import { SuspenseView } from "../views/suspenseView.jsx";
 import { speechToText } from "../speechToText.js";
 import { PROXY_URL } from "../apiConfig.js";
-//import autio player
 import AudioPlayerPresenter from "../presenter/NewsKitPlayerPresenter";
 import { NewsKitProvider, newskitLightTheme, TitleBar, Block } from "newskit";
-
 import { useEffect } from "react";
 
 const Transcription = observer(function TranscripRender(props) {
@@ -47,17 +43,7 @@ const Transcription = observer(function TranscripRender(props) {
           />
         </div>
 
-        <div className="audio-player-container">
-          {/* audioplayer */}
-          <NewsKitProvider theme={newskitLightTheme}>
-            <div
-              style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}
-            >
-              <AudioPlayerPresenter audioSrc={props.model.audioUrl} />
-            </div>
-          </NewsKitProvider>
-        </div>
-      </div>
+      </div className="audio-player-container">
       {/* Audioplayer */}
       <NewsKitProvider theme={newskitLightTheme}>
         <div style={{ padding: "40px", maxWidth: "800px", margin: "0 auto" }}>

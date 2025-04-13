@@ -1,0 +1,144 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9fafb;
+}
+
+.wordlist-container {
+  flex: 1;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Sidebar Navigation */
+.wordlist-sidebar {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.wordlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wordlist-item {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+}
+
+.wordlist-item:hover {
+  background-color: #f3f4f6;
+}
+
+.wordlist-item.selected {
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+.wordlist-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.wordlist-count {
+  font-size: 0.75rem;
+  color: #6b7280;
+  background-color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Main Content Area */
+.wordlist-content {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.content-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.word-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.word-item {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.word-item:hover {
+  background-color: #fff;
+  border-color: #bfdbfe;
+}
+
+.word-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.word-phonetics {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.phonetic {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-family: monospace;
+  background-color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.word-definition {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.5;
+} 
