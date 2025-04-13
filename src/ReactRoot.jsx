@@ -7,6 +7,7 @@ import PodcastChannelPresenter from "./presenter/PodcastChannelPresenter";
 import PodcastPlayPresenter from "./presenter/PodcastPlayPresenter";
 import TranslationAPI from "./test/TranslationAPI";
 import LoginPresenter from "./presenter/loginPagePresenter.jsx";
+import { RssPresenter } from "./presenter/rssPresenter";
 
 const ReactRoot = observer(function ReactRoot(props) {
   return (
@@ -42,6 +43,10 @@ export function makeRouter(ReactiveModel) {
     {
       path: "/podcast-play",
       element: <PodcastPlayPresenter model={ReactiveModel} />,
+    },
+    {
+      path: "/rss-test",
+      element: <RssPresenter />,
     }
   ]);
 }

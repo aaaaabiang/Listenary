@@ -433,3 +433,28 @@
 .add-to-wordlist-btn:active {
   background-color: #1e40af;
 } 
+
+.podcast-episode-summary {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  padding: 1rem;
+}
+
+.episode-cover-image {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.episode-description {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}

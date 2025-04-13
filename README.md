@@ -1,17 +1,31 @@
 # vt25-Project
 
-## run these code to preview the app:
+## Setup and Running Instructions
 
-### node backend/server.js
+### Backend Setup
+1. Run the backend server:
+```bash
+node backend/server.js
+```
 
-### npm run dev
+### Frontend Setup
+1. Start the development server:
+```bash
+npm run dev
+```
 
-## Begin from the homepage
+## Features and Usage
 
-### Input this RSS link and click search button: conferencesforwomen.org/feed/podcast/
+### RSS Feed Integration
+- Homepage: Input RSS link (e.g., conferencesforwomen.org/feed/podcast/)
+- Access RSS data:
+  - Article content: use `getArticles()`
+  - URLs: use `getUrls()`
 
-## Individual audio test
+### Audio Transcription
+- Access at: `/#/Transcription`
+- Test audio URL: https://crbn.us/whatstheweatherlike.wav
 
-### The router address: /#/Transcription
-
-### https://crbn.us/whatstheweatherlike.wav
+### Podcast Features
+- Channel view: `/#/podcast-channel`
+- Player: `/#/podcast-play`

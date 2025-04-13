@@ -108,13 +108,23 @@ export function PodcastPlayView({ podcastData, AudioPlayer, transcriptionData = 
         </div>
       </nav>
 
-      <div className="podcast-info-header">
-        <h1 className="podcast-title">{podcastData.title}</h1>
-        <div className="podcast-meta">
-          <span className="podcast-source">{podcastData.source}</span>
-          <span className="podcast-duration">{podcastData.duration}</span>
-        </div>
+    <div className="podcast-info-header">
+      <h1 className="podcast-title">{podcastData.title}</h1>
+      <div className="podcast-meta">
+        <span className="podcast-source">{podcastData.source}</span>
+        <span className="podcast-duration">{podcastData.duration}</span>
       </div>
+    </div>
+
+    {/* ✅ 新增封面图与简介区域 */}
+    <div className="podcast-episode-summary">
+      <img
+        src={podcastData.coverImage}
+        alt="Podcast Cover"
+        className="episode-cover-image"
+      />
+      <p className="episode-description">{podcastData.description}</p>
+    </div>
 
       <div className={`podcast-play-content ${showDictionary ? 'dimmed' : ''}`}>
         <div className="transcript-container">
