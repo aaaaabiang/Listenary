@@ -15,7 +15,7 @@ export const model = {
   setResults(results) {
     this.transcripResults = [].concat(results); //MobX 中，直接赋值代理数组会导致更新失败。
   },
-  
+
   setAudioUrl(url) {
     this.audioUrl = url;
   },
@@ -26,22 +26,21 @@ export const model = {
   setAudioDuration(duration) {
     this.audioDuration = duration;
   },
-  setResults(results) {
-    this.transcripResults = [].concat(results); //MobX 中，直接赋值代理数组会导致更新失败。
-  },
 
   // 新增
   setRssUrl(url) {
     this.rssUrl = url;
   },
-  
+
   async loadRssData() {
     this.podcastLoadError = null;
     this.podcastChannelInfo = null;
     this.podcastEpisodes = [];
 
     try {
-      const res = await fetch(`http://localhost:3001/api/rss?url=${encodeURIComponent(this.rssUrl)}`);
+      const res = await fetch(
+        `http://localhost:3001/api/rss?url=${encodeURIComponent(this.rssUrl)}`
+      );
       const data = await res.json();
 
       this.podcastChannelInfo = {
@@ -64,10 +63,9 @@ export const model = {
       this.podcastLoadError = err.message;
     }
   },
-  
+
   //store asr api result in transcrip result promise state
   getTranscription(params) {
     resolvePromise(speechToText(params), transcripResultsPromiseState);
   },
 };
-
