@@ -35,7 +35,9 @@ Listenary is a lightweight podcast platform designed to support language learner
 
 ### Install Dependences
 
+```bash
 npm install
+```
 
 ### Backend Setup
 
@@ -79,7 +81,7 @@ npm run dev
 
 ## Sample RSS Feeds
 
-Use the following sample links to test podcast loading and transcription:
+Feel free to use the following sample links to test podcast loading and transcription:
 
 Example RSS feeds:
 
