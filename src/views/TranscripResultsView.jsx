@@ -1,4 +1,4 @@
-import { getTimestamp, getSentence } from "../speechToText";
+// import { getTimestamp, getSentence } from "../speechToText";
 
 import "../styles/Transcription.css";
 

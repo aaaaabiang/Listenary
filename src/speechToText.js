@@ -61,15 +61,15 @@ export function speechToText(params) {
   }
 }
 
-//get timestamp (problem remain)
-export function getTimestamp(result) {
-  for (let i = 0; i < result.length; i++) {
-    return result[i].durationMilliseconds;
-  }
-}
-//get split sentence
-export function getSentence(result) {
-  for (let i = 0; i < result.length; i++) {
-    return result[i].text;
-  }
-}
+// //get timestamp (problem remain)
+// export function getTimestamp(result) {
+//   for (let i = 0; i < result.length; i++) {
+//     return result[i].durationMilliseconds;
+//   }
+// }
+// //get split sentence
+// export function getSentence(result) {
+//   for (let i = 0; i < result.length; i++) {
+//     return result[i].text;
+//   }
+// }

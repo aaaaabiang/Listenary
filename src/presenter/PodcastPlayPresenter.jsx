@@ -29,6 +29,24 @@ const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
     previousEpisodeRef.current = episode; // 更新上一次的 episode
   }, [episode]); // 依赖 episode，当 episode 变化时触发
 
+  // 格式化时间戳
+  function getTimestamp(phrase) {
+    const totalMilliseconds = phrase.offsetMilliseconds || 0;
+    const totalSeconds = Math.floor(totalMilliseconds / 1000);
+    const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
+      2,
+      "0"
+    );
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+  }
+
+  // 提取转录文本
+  function getSentence(phrase) {
+    return phrase.text || "No text available";
+  }
+
   function handleTranscribe() {
     if (!episode || !episode.audioUrl) {
       alert("Invalid episode data");
@@ -121,6 +139,21 @@ const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
       });
   }
 
+  // 处理转录结果，生成带时间戳和文本的数组
+  function processTranscriptionData() {
+    const results = [];
+    for (let i = 0; i < props.model.transcripResults.length; i++) {
+      const phrase = props.model.transcripResults[i];
+      results.push({
+        timestamp: getTimestamp(phrase),
+        text: getSentence(phrase),
+      });
+    }
+    return results;
+  }
+
+  const processedTranscriptionData = processTranscriptionData();
+
   function saveTranscripDataACB(data) {
     if (data) {
       // 添加而不是替换
@@ -185,7 +218,7 @@ const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
   return (
     <PodcastPlayView
       podcastData={getPodcastData()}
-      transcriptionData={props.model.transcripResults}
+      transcriptionData={processedTranscriptionData}
       wordCard={wordCard}
       AudioPlayer={AudioPlayerPresenter}
       onWordSelect={handleWordSelect}
