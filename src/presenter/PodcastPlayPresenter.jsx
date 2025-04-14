@@ -13,20 +13,11 @@ const PodcastPlayPresenter = observer(function PodcastPlayPresenter(props) {
   const episode = location.state?.episode;
 
   const [isLoading, setIsLoading] = useState(false);
-  const previousEpisodeRef = useRef(null); // 用于存储上一次的 episode
 
   // 清空转写结果，当 episode 发生变化时
   useEffect(() => {
-    if (
-      previousEpisodeRef.current &&
-      previousEpisodeRef.current.id !== episode.id
-    ) {
-      console.log("Episode changed, clearing transcription results...");
-      props.model.setResults([]); // 清空转写结果
-    } else {
-      console.log("Same episode, keeping transcription results.");
-    }
-    previousEpisodeRef.current = episode; // 更新上一次的 episode
+    console.log("Episode changed, clearing transcription results.");
+    props.model.setResults([]); // 清空转写结果
   }, [episode]); // 依赖 episode，当 episode 变化时触发
 
   // 格式化时间戳
